@@ -13,4 +13,5 @@ router.register(r"alerts", AlertViewSet)
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include(router.urls)),
+    path('api/', include('railflow.urls')),
 ]
