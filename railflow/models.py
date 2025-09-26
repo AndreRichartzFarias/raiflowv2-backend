@@ -24,3 +24,13 @@ class Alert(models.Model):
 
     def __str__(self):
         return self.message
+    
+class AlertCard(models.Model):
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    train = models.ForeignKey(Train, on_delete=models.CASCADE)
+    alert = models.ForeignKey(Alert, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.title

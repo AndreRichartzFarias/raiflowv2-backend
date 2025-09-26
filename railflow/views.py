@@ -2,6 +2,7 @@ from django.shortcuts import render
 from rest_framework.viewsets import ModelViewSet
 from django.http import JsonResponse
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
+from django.contrib.auth.decorators import login_required
 import json
 
 from django.views.decorators.http import require_http_methods
@@ -9,10 +10,11 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login, logout
 from .forms import CreateUserForm
 
-from railflow.models import CargoType, Train, Alert
-from railflow.serializers import CargoTypeSerializer, TrainSerializer, AlertSerializer
+from railflow.models import CargoType, Train, Alert, AlertCard
+from railflow.serializers import CargoTypeSerializer, TrainSerializer, AlertSerializer, AlertCardSerializer
 
-
+def api_root(request):
+    return JsonResponse({"message": "Bem-vindo à API Raiflow!"})
 @ensure_csrf_cookie
 @require_http_methods(["GET"])
 def set_csrf_token(request):
@@ -80,3 +82,7 @@ class TrainViewSet(ModelViewSet):
 class AlertViewSet(ModelViewSet):
     queryset = Alert.objects.all()
     serializer_class = AlertSerializer
+
+class AlertCardViewSet(ModelViewSet):
+    queryset = AlertCard.objects.all()
+    serializer_class = AlertCardSerializer
