@@ -34,3 +34,40 @@ class AlertCard(models.Model):
 
     def __str__(self):
         return self.title
+    
+""" class Route(models.Model):
+    origin = models.CharField(max_length=100)
+    destination = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f"{self.origin} to {self.destination}" """
+    
+class ReasonInspection(models.Model):
+    description = models.CharField(25)
+
+    def __str__(self):
+        return self.description
+    
+class Inspection(models.Model):
+    train = models.ForeignKey(Train, on_delete=models.CASCADE)
+    reason = models.ForeignKey(ReasonInspection, on_delete=models.CASCADE)
+    date = models.DateField()
+    notes = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return f"Inspection of {self.train.number} on {self.date}"
+    
+class reasonMaintenance(models.Model):
+    description = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.description
+
+class Maintenance(models.Model):
+    train = models.ForeignKey(Train, on_delete=models.CASCADE)
+    reason = models.ForeignKey(reasonMaintenance, on_delete=models.CASCADE)
+    date = models.DateField()
+    notes = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return f"Maintenance of {self.train.number} on {self.date}"
