@@ -10,8 +10,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login, logout
 from .forms import CreateUserForm
 
-from railflow.models import CargoType, Train, Alert, AlertCard, reasonMaintenance, Maintenance, ReasonInspection, Inspection
-from railflow.serializers import CargoTypeSerializer, TrainSerializer, AlertSerializer, AlertCardSerializer, reasonMaintenanceSerializer, MaintenanceSerializer, ReasonInspectionSerializer, InspectionSerializer
+from railflow.models import CargoType, Train, Alert, AlertCard, reasonMaintenance, Maintenance, ReasonInspection, Inspection, Company, Order, Station
+from railflow.serializers import CargoTypeSerializer, TrainSerializer, AlertSerializer, AlertCardSerializer, reasonMaintenanceSerializer, MaintenanceSerializer, ReasonInspectionSerializer, InspectionSerializer, CompanySerializer, OrderSerializer, StationSerializer
 
 def api_root(request):
     return JsonResponse({"message": "Bem-vindo à API Raiflow!"})
@@ -102,3 +102,15 @@ class reasonMaintenanceViewSet(ModelViewSet):
 class MaintenanceViewSet(ModelViewSet):
     queryset = Maintenance.objects.all()
     serializer_class = MaintenanceSerializer
+
+class CompanyViewSet(ModelViewSet):
+    queryset = Company.objects.all()
+    serializer_class = CompanySerializer
+
+class OrderViewSet(ModelViewSet):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+
+class StationViewSet(ModelViewSet):
+    queryset = Station.objects.all()
+    serializer_class = StationSerializer

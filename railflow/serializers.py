@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 
-from railflow.models import CargoType, Alert, Train, AlertCard, reasonMaintenance, Maintenance, ReasonInspection, Inspection
+from railflow.models import CargoType, Alert, Train, AlertCard, reasonMaintenance, Maintenance, ReasonInspection, Inspection, Company, Order, Station
 
 class CargoTypeSerializer(ModelSerializer):
     class Meta:
@@ -51,3 +51,23 @@ class MaintenanceSerializer(ModelSerializer):
     class Meta:
         model = Maintenance
         fields = ['id', 'train', 'train_number', 'reason', 'reason_description', 'date', 'notes']
+
+class CompanySerializer(ModelSerializer):
+    class Meta:
+        model = Company
+        fields = '__all__'
+
+class OrderSerializer(ModelSerializer):
+    origin = serializers.CharField(source='origin.name', read_only=True)
+    destination = serializers.CharField(source='destination.name', read_only=True)
+    cargo_type_description = serializers.CharField(source='cargo_type.description', read_only=True)
+    company_name = serializers.CharField(source='company.name', read_only=True)
+
+    class Meta:
+        model = Order
+        fields = ['id', 'order_number', 'cargo_type', 'cargo_type_description', 'weight', 'origin', 'destination', 'departure_date', 'arrival_date', 'company', 'company_name']
+
+class StationSerializer(ModelSerializer):
+    class Meta:
+        model = Station
+        fields = '__all__'

@@ -136,6 +136,6 @@ CSRF_TRUSTED_ORIGINS = [
 
 CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",  # ou a porta do seu frontend
+    "http://localhost:5173",  # porta do seu frontend
 ]
 CORS_ALLOW_CREDENTIALS = True

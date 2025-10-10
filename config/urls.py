@@ -3,7 +3,7 @@ from django.urls import include, path
 
 from rest_framework.routers import DefaultRouter
 
-from railflow.views import CargoTypeViewSet, TrainViewSet, AlertViewSet, AlertCardViewSet, reasonMaintenanceViewSet, MaintenanceViewSet, ReasonInspectionViewSet, InspectionViewSet
+from railflow.views import CargoTypeViewSet, TrainViewSet, AlertViewSet, AlertCardViewSet, reasonMaintenanceViewSet, MaintenanceViewSet, ReasonInspectionViewSet, InspectionViewSet, CompanyViewSet, OrderViewSet, StationViewSet
 
 router = DefaultRouter()
 router.register(r"cargotypes", CargoTypeViewSet)
@@ -14,6 +14,9 @@ router.register(r"reasoninspections", ReasonInspectionViewSet)
 router.register(r"inspections", InspectionViewSet)
 router.register(r"reasonmaintenances", reasonMaintenanceViewSet)
 router.register(r"maintenances", MaintenanceViewSet)
+router.register(r"companies", CompanyViewSet)
+router.register(r"orders", OrderViewSet)
+router.register(r"stations", StationViewSet)
 
 
 urlpatterns = [
