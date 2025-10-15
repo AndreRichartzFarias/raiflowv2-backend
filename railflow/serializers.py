@@ -20,7 +20,6 @@ class AlertSerializer(ModelSerializer):
 
 class AlertCardSerializer(ModelSerializer):
     train_number = serializers.CharField(source='train.number', read_only=True)
-    alert = AlertSerializer()
     class Meta:
         model = AlertCard
         fields = ['id', 'title', 'content', 'created_at', 'train', 'train_number', 'alert']

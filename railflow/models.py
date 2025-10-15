@@ -41,6 +41,7 @@ class AlertCard(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     train = models.ForeignKey(Train, on_delete=models.CASCADE)
     alert = models.ForeignKey(Alert, on_delete=models.CASCADE)
+    
 
     def __str__(self):
         return self.title
@@ -55,7 +56,7 @@ class AlertCard(models.Model):
 
 
 class ReasonInspection(models.Model):
-    description = models.CharField(25)
+    description = models.CharField(max_length=25)
 
     def __str__(self):
         return self.description
@@ -101,10 +102,10 @@ class Company(models.Model):
 def create_new_ref_number():
     not_unique = True
     while not_unique:
-        unique_ref = random.randint(00000, 99999)
-        if not Order.objects.filter(order_number=unique_ref).exists():
+        unique_ref = random.randint(0, 99999)
+        if not Order.objects.filter(order_number=str(unique_ref).zfill(5)).exists():
             not_unique = False
-    return str(unique_ref)
+    return str(unique_ref).zfill(5)
     
 class Order(models.Model):
     order_number = models.CharField(
