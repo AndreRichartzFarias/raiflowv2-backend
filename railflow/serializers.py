@@ -57,15 +57,26 @@ class CompanySerializer(ModelSerializer):
         fields = '__all__'
 
 class OrderSerializer(ModelSerializer):
-    origin = serializers.CharField(source='origin.name', read_only=True)
-    destination = serializers.CharField(source='destination.name', read_only=True)
     cargo_type_description = serializers.CharField(source='cargo_type.description', read_only=True)
+    origin = serializers.PrimaryKeyRelatedField(queryset=Station.objects.all())
+    destination = serializers.PrimaryKeyRelatedField(queryset=Station.objects.all())
+    origin_name = serializers.CharField(source='origin.name', read_only=True)
+    destination_name = serializers.CharField(source='destination.name', read_only=True)
     company_name = serializers.CharField(source='company.name', read_only=True)
 
     class Meta:
         model = Order
-        fields = ['id', 'order_number', 'cargo_type', 'cargo_type_description', 'weight', 'origin', 'destination', 'departure_date', 'arrival_date', 'company', 'company_name']
-
+        fields = [
+            'id', 'order_number',
+            'cargo_type', 'cargo_type_description',
+            'weight',
+            'origin', 'origin_name',
+            'destination', 'destination_name',
+            'departure_date', 'arrival_date',
+            'company', 'company_name'
+        ]
+        read_only_fields = ['order_number']
+        
 class StationSerializer(ModelSerializer):
     class Meta:
         model = Station
