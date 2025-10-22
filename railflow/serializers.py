@@ -18,12 +18,12 @@ class AlertSerializer(ModelSerializer):
         model = Alert
         fields = '__all__'
 
-class AlertCardSerializer(ModelSerializer):
+class AlertCardSerializer(serializers.ModelSerializer):
     train_number = serializers.CharField(source='train.number', read_only=True)
+    alert = AlertSerializer(read_only=True)          # <-- nested
     class Meta:
         model = AlertCard
         fields = ['id', 'title', 'content', 'created_at', 'train', 'train_number', 'alert']
-        
 
 class ReasonInspectionSerializer(ModelSerializer):
     class Meta:
