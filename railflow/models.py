@@ -122,3 +122,44 @@ class Order(models.Model):
         return f"Order {self.order_number} from {self.origin} to {self.destination}"
 
     
+class Estacao(models.Model):
+    nome = models.CharField(max_length=100)
+    latitude = models.DecimalField(max_digits=10, decimal_places=8)
+    longitude = models.DecimalField(max_digits=11, decimal_places=8)
+    endereco = models.TextField(blank=True, null=True)
+    data_criacao = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'estacoes'
+        ordering = ['nome']
+
+    def __str__(self):
+        return self.nome
+
+
+class Rota(models.Model):
+    nome = models.CharField(max_length=100)
+    distancia_km = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
+    tempo_estimado_min = models.IntegerField(null=True, blank=True)
+    data_criacao = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'rotas'
+        ordering = ['nome']
+
+    def __str__(self):
+        return self.nome
+
+
+class RotaEstacao(models.Model):
+    rota = models.ForeignKey(Rota, related_name='rota_estacoes', on_delete=models.CASCADE)
+    estacao = models.ForeignKey(Estacao, related_name='estacao_rotas', on_delete=models.CASCADE)
+    ordem = models.IntegerField()
+
+    class Meta:
+        db_table = 'rota_estacoes'
+        ordering = ['ordem']
+        unique_together = ('rota', 'ordem')
+
+    def __str__(self):
+        return f'{self.rota.nome} - {self.ordem}: {self.estacao.nome}'

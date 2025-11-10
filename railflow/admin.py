@@ -14,6 +14,9 @@ from .models import Inspection
 from .models import Company
 from .models import Order
 from .models import Station
+from .models import Estacao
+from .models import Rota
+from .models import RotaEstacao
 
 admin.site.register(CargoType)
 admin.site.register(Train)
@@ -26,3 +29,6 @@ admin.site.register(Inspection)
 admin.site.register(Company)
 admin.site.register(Order)
 admin.site.register(Station)
+admin.site.register(Estacao)
+admin.site.register(Rota)
+admin.site.register(RotaEstacao)

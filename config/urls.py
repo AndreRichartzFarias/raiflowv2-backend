@@ -4,7 +4,8 @@ from rest_framework.routers import DefaultRouter
 from railflow.views import (
     CargoTypeViewSet, TrainViewSet, AlertViewSet, AlertCardViewSet,
     reasonMaintenanceViewSet, MaintenanceViewSet, ReasonInspectionViewSet,
-    InspectionViewSet, CompanyViewSet, OrderViewSet, StationViewSet
+    InspectionViewSet, CompanyViewSet, OrderViewSet, StationViewSet,
+    EstacaoViewSet, RotaViewSet, RotaEstacaoViewSet
 )
 
 router = DefaultRouter()
@@ -19,9 +20,13 @@ router.register(r'inspections', InspectionViewSet)
 router.register(r'companies', CompanyViewSet)
 router.register(r'orders', OrderViewSet)
 router.register(r'stations', StationViewSet)
+router.register(r'estacoes', EstacaoViewSet)
+router.register(r'rotas', RotaViewSet)
+router.register(r'rota-estacoes', RotaEstacaoViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),  
     path('api/', include('railflow.urls')),
+    path('', include('accounts.urls')),
 ]
